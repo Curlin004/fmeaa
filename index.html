@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FMEA-Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .fmea-container {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr); /* Spalten-Layout */
+            gap: 1px;
+            border: 1px solid #ccc;
+        }
+
+        .fmea-cell {
+            padding: 10px;
+            border: 1px solid #ddd;
+            background: white;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+            resize: both;
+            overflow: auto;
+        }
+
+        .header-cell {
+            background: #eaeaea;
+            font-weight: bold;
+        }
+
+        .circle {
+            width: 50px;
+            height: 50px;
+            background-color: #87CEEB;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .controls {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        .small-text {
+            font-size: 12px;
+            color: #666;
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>FMEA-Tool</h1>
+
+    <div class="controls">
+        <button class="button" onclick="addColumn()">Spalte hinzufügen</button>
+        <button class="button" onclick="addRow()">Zeile hinzufügen</button>
+        <button class="button" onclick="addCircle()">Kreis hinzufügen</button>
+    </div>
+
+    <div class="fmea-container" id="fmeaTable">
+        <!-- Kopfzeilen -->
+        <div class="header-cell">Systeme/ Merkmale</div>
+        <div class="header-cell">Potentielle Fehler</div>
+        <div class="header-cell">Potentielle Folgen</div>
+        <div class="header-cell">Potentielle Ursachen</div>
+        <div class="header-cell">Prüfmaßnahmen</div>
+        <div class="header-cell">Auftreten</div>
+        <div class="header-cell">Bedeutung</div>
+        <div class="header-cell">Entdeckung</div>
+        <div class="header-cell">RPZ</div>
+        <div class="header-cell">Empfohlene Maßnahmen</div>
+        <div class="header-cell">Verantwortung</div>
+        <div class="header-cell">Verbesserter Zustand</div>
+
+        <!-- Beispielzeile -->
+        <div class="fmea-cell">Objekt</div>
+        <div class="fmea-cell">Schadensart</div>
+        <div class="fmea-cell">Auswirkung</div>
+        <div class="fmea-cell">Ursache</div>
+        <div class="fmea-cell">Ist-Prüfung</div>
+        <div class="fmea-cell">8</div>
+        <div class="fmea-cell">5</div>
+        <div class="fmea-cell">4</div>
+        <div class="fmea-cell">40</div>
+        <div class="fmea-cell">Empfohlene Maßnahme</div>
+        <div class="fmea-cell">Verantwortungsbereich</div>
+        <div class="fmea-cell">76</div>
+    </div>
+
+    <div class="small-text">RPZ = Risiko-Prioritätszahl</div>
+
+    <script>
+        const fmeaTable = document.getElementById('fmeaTable');
+
+        function addColumn() {
+            // Füge eine neue Spalte zu jeder Zeile hinzu
+            const rows = fmeaTable.children.length / 12; // Anzahl der Zeilen
+            for (let i = 0; i < rows; i++) {
+                const cell = document.createElement('div');
+                cell.classList.add('fmea-cell');
+                cell.contentEditable = true; // Text bearbeitbar machen
+                fmeaTable.appendChild(cell);
+            }
+
+            // Füge eine neue Kopfzeile hinzu
+            const headerCell = document.createElement('div');
+            headerCell.classList.add('header-cell');
+            headerCell.contentEditable = true;
+            headerCell.textContent = "Neue Spalte";
+            fmeaTable.insertBefore(headerCell, fmeaTable.children[rows * 12]);
+        }
+
+        function addRow() {
+            // Füge eine neue Zeile hinzu
+            const columns = 12; // Aktuelle Spaltenanzahl
+            for (let i = 0; i < columns; i++) {
+                const cell = document.createElement('div');
+                cell.classList.add('fmea-cell');
+                cell.contentEditable = true; // Text bearbeitbar machen
+                fmeaTable.appendChild(cell);
+            }
+        }
+
+        function addCircle() {
+            // Füge einen Kreis in die Tabelle ein
+            const circle = document.createElement('div');
+            circle.classList.add('circle');
+            circle.textContent = "Neu";
+            circle.contentEditable = true; // Text im Kreis bearbeitbar
+            fmeaTable.appendChild(circle);
+        }
+    </script>
+</body>
+</html>
